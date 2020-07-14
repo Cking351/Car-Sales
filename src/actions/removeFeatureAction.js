@@ -1,0 +1,1 @@
+export const REMOVE_FEATURES = "REMOVE_FEATURES"
