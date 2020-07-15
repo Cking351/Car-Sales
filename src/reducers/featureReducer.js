@@ -17,3 +17,39 @@ export const initialState = {
       { id: 4, name: 'Rear spoiler', price: 250 }
     ]
   };
+
+
+  export const reducer = (state = initialState, action) => {
+      switch(action.type) {
+        case ADD_FEATURES:
+            return {
+                ...state,
+                car: {
+                    ...state.car,
+                    price: state.car.price + action.payload.price,
+                    features: [
+                        ...state.car.features,
+                        action.payload
+                    ]
+                },
+                additionalFeatures: state.additionalFeatures.filter(item => {
+                    return item.id !== action.payload.id
+                })
+            }
+            case REMOVE_FEATURES:
+                return {
+                    car: {
+                        ...state.car,
+                        price: state.car.features.filter(item => {
+                            return item.id !== action.payload.id
+                        })
+                    },
+                    additionalFeatures: [
+                        ...state.additionalFeatures,
+                        action.payload
+                    ]
+                }
+        default:
+            return state    
+      }
+  }
